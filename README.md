@@ -8,7 +8,7 @@ conda create -n py27env python=2.7 pip
 
 source activate py27env
 
-# use " source deactivate" to deactivate the env
+use " source deactivate" to deactivate the env
 
 
 
@@ -84,7 +84,7 @@ Ran 10 tests in 10.583s
 OK
 
 Done. 
-===============
+----------
 A Python interface to the ROUGE package.
 
 Right now, only the basic functionality is in place. You can score one summary at a time with respect to multiple reference summaries.
