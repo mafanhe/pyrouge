@@ -1,6 +1,90 @@
 pyrouge
 =======
+Install Rouge and Pyrouge
 
+Step 1: Create a new conda virtual env
+
+conda create -n py27env python=2.7 pip
+
+source activate py27env
+
+# use " source deactivate" to deactivate the env
+
+
+
+Step 2: Install pyrouge by conda from 3rd party
+
+conda install -c auto pyrouge
+
+
+
+Step 3: Download ROUGE-1.5.5 from its closed website by using a time machine (ask Einstein or go to Github), then copy ROUGE-1.5.5 to ~/rouge_path
+
+cp RELEASE-1.5.5 ~/rouge/
+
+
+
+Step 4: Set ROUGE path for pyrouge
+
+pyrouge_set_rouge_path ~/rouge/RELEASE-1.5.5
+
+
+
+Step 5: Install plugins for ROUGE-1.5.5
+
+sudo cpan App::cpanminus
+
+sudo cpanm XML::DOM
+
+
+
+Step 6: Deal with Wordnet exceptions for ROUGE-1.5.5 (f**k)
+
+cd ~/rouge/RELEASE-1.5.5/data/WordNet-2.0-Exceptions/
+
+./buildExeptionDB.pl . exc WordNet-2.0.exc.db
+
+cd ../
+
+ln -s WordNet-2.0-Exceptions/WordNet-2.0.exc.db WordNet-2.0.exc.db
+
+
+
+Step 7: Deal with test code errors for pyrouge (f**k AGAIN!)
+
+In Rouge155_test.py file, you should modify two lines (refhttps://stackoverflow.com/a/41382391):
+
+vi ~/.anaconda3/envs/py27env/lib/python2.7/site-packages/pyrouge/tests/Rouge155_test.py
+
+modify
+
+"pyrouge_evaluate_plain_text_files.py -m {} -s {} -sfp "
+
+to
+
+"pyrouge_evaluate_plain_text_files -m {} -s {} -sfp "
+
+And, modify
+
+"pyrouge_write_config_file.py -m {m} -s {s} " 
+
+to
+
+"pyrouge_write_config_file -m {m} -s {s} " 
+
+
+
+Step 8: Run test until "OK" appears.
+
+>python -m pyrouge.test
+
+Ran 10 tests in 10.583s
+
+
+OK
+
+Done. 
+===============
 A Python interface to the ROUGE package.
 
 Right now, only the basic functionality is in place. You can score one summary at a time with respect to multiple reference summaries.
